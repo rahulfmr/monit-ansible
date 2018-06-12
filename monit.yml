@@ -1,0 +1,15 @@
+---
+# common
+- hosts: {{ target }}
+  become: True
+  gather_facts: no
+
+  tasks:
+    - import_tasks: 'tasks/install.yml'
+
+  vars_files:
+    - 'defaults/main.yml'
+    - 'vars/main.yml'
+
+  handlers:
+    - import_tasks: 'handlers/main.yml'

@@ -1,0 +1,23 @@
+set mailserver {{ monit_mail_host }} port {{ monit_mail_port }}
+    username "{{ monit_mail_username }}" password  "{{ monit_mail_password }}"
+    using {{ monit_mail_encryption }}
+     with timeout {{ monit_start_delay }} seconds
+
+
+set mail-format {
+        From: monit@$HOST
+        Subject: {{ monit_mail_default_subject }}
+        Message: {{ monit_mail_default_message }}
+
+ ---
+ Monit
+
+}
+
+set alert {{ monit_mail_alert1_to }} with reminder on {{ monit_reminder_alert }} cycles
+
+check filesystem "{{ root }}" with path "{{ rootvolume.stdout }}"
+  if space usage > {{ monit_space_percent }}% for {{ monit_cycles }} cycles then alert
+
+check filesystem "{{ volumes }}" with path "{{ volume.stdout }}"
+  if space usage > {{ monit_space_percent }}% for {{ monit_cycles }} cycles then alert

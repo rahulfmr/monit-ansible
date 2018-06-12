@@ -2,6 +2,7 @@ galaxy_info:
   author: Rahul Arora
   description: Diskspace dynamic monitoring alerts through monit
   min_ansible_version: 2.1
+  license: MIT
   platforms:
   - name: EL
     versions:

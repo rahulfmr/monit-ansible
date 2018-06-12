@@ -1,0 +1,32 @@
+---
+
+#Monit installation & Configuration
+
+- name: install monit
+  yum: name=monit state=installed update_cache=yes
+  notify:
+  - restart monit
+
+- name: ensure monit is configured
+  template: src="../templates/monit.conf.j2" dest="/etc/monit.conf" mode="0600" owner=root group=root
+  notify:
+  - reload monit
+
+- name: Fetch root path on the server
+  shell: df  -Ph |grep 'rootfs' | awk -F " " '{ print $1 }'
+  register: rootvolume
+- debug: var={{ rootvolume.stdout }}
+
+#Mount path should be entered to grep the value whose space has to idenfied
+- name: Fetch vol path on the server
+  shell: df  -Ph |grep '{specify mountpath}' | awk -F " " '{ print $1 }'  
+  register: volume
+- debug: var={{ volume.stdout }}
+
+- name: monit filesystem check
+  template: src="../templates/filesystems_check.j2" dest="/etc/monit.d/disk_check" mode=0640 owner=root group=root
+  notify:
+  - restart monit
+
+- name: ensure monit INIT status
+  service: name=monit state=started enabled=yes

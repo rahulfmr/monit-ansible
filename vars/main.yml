@@ -1,0 +1,5 @@
+---
+
+monit_service: monit
+root: rootfs
+volumes: ebsvol

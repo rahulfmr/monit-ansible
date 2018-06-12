@@ -1,0 +1,22 @@
+---
+monit_interval: 60
+monit_space_percent: 80
+monit_cycles: 8
+monit_reminder_alert: 15
+monit_start_delay: 30 # 0 to disable
+monit_logfile: syslog facility log_daemon
+monit_event_path: /var/lib/monit/events
+
+monit_alerts_on: true
+
+monit_mail_host: smtp.gmail.com
+monit_mail_port: 587
+monit_mail_username: xxxxxxxxxx
+monit_mail_password: xxxxxxxxxx
+monit_mail_encryption: TLSV1 # SSLAUTO, SSLV2, SSLV3, TLSV1, TLSV11, TLSV12
+monit_mail_alert_to: EMAIL_ADDRESS_DEFINE
+monit_mail_default_from: DEFINE_FROM_ADDRESS
+monit_mail_default_subject: "[Monit] $SERVICE $EVENT"
+monit_mail_default_message: "Monit $ACTION $SERVICE at $DATE on $HOST: $DESCRIPTION."
+
+cache_time: 86400
